@@ -5,7 +5,7 @@ chai.use(require("chai-http"));
 chai.should();
 
 describe("API", () => {
-    describe("GET /", () => { // Test to get all students record
+    describe("GET /", () => {
         it("should get a json with title Express", (done) => {
             chai.request(app).get('/').end((err, res) => {
                 res.should.have.status(200);
