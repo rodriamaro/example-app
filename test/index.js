@@ -1,7 +1,6 @@
 var chai = require("chai");
 var app = require('../app')
 
-chai.use(require('chai-json'));
 chai.use(require("chai-http"));
 chai.should();
 
@@ -14,6 +13,12 @@ describe("API", () => {
                 res.body.should.have.property('title').eql('Express');
                 done();
             });
-        }); // Test to get single student record
+        });
+        it("should post return 201", (done) => {
+          chai.request(app).post('/').end((err, res) => {
+              res.should.have.status(201);
+              done();
+          });
+      });
     });
 });
