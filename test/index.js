@@ -10,7 +10,7 @@ describe("API", () => {
             chai.request(app).get('/').end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
-                res.body.should.have.property('title').eql('Express');
+                res.body.should.have.property('title').eql('Hola a todos!');
                 done();
             });
         });
