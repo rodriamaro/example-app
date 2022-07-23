@@ -8,3 +8,8 @@ steps:
   commands:
   - npm install
   - npm test
+- name: codecov
+  image: robertstettner/drone-codecov
+  settings:
+    token: 
+      from_secret: codecov_secret
