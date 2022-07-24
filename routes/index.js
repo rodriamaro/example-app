@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
   res.json({ title: 'Hola a todos!' });
 });
 
-router.post('/', function(req, res, next) {
-  res.status(201).send();
-});
+// router.post('/', function(req, res, next) {
+//   res.status(201).send();
+// });
 
 module.exports = router;
