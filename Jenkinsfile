@@ -30,14 +30,6 @@ pipeline {
                 sh 'npm run lint'
             }
         }
-        stage('Docker build') {
-            steps {
-                sh '''
-                VERSION=$()
-                docker build -t example-app:$VERSION .
-                '''
-            }
-        }
         stage('Building our image') {
             when {
                 branch 'main'
