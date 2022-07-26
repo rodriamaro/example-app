@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = 'phantomis/example-app'
+        registryCredential = '0ef501d5-7514-4374-bf18-9efeb5de3fd9'
+        dockerImage = ''
+    }
     agent {
         docker {
             image 'node:14-alpine'
@@ -25,5 +30,29 @@ pipeline {
                 sh 'npm run lint'
             }
         }
+        stage('Docker build') {
+            steps {
+                sh '''
+                VERSION=$()
+                docker build -t example-app:$VERSION .
+                '''
+            }
+        }
+        stage('Building our image') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    props = readJSON file: 'package.json'
+                    dockerImage = docker.build registry + ":${props.version}-$BUILD_NUMBER"
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                    sh "docker rmi $registry:${props.version}-$BUILD_NUMBER"
+                }
+            }
+        }
+
     }
 }
