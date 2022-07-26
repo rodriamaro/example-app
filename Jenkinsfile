@@ -34,6 +34,7 @@ pipeline {
             when {
                 branch 'main'
             }
+            agent any
             steps {
                 script {
                     props = readJSON file: 'package.json'
