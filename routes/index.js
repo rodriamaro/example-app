@@ -11,4 +11,8 @@ router.post('/', (req, res, next) => {
   res.status(201).send();
 });
 
+router.put('/', (req, res, next) => {
+  res.status(201).send();
+});
+
 module.exports = router;
