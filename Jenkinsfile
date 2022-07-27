@@ -45,6 +45,23 @@ pipeline {
                 sh 'npm run lint'
             }
         }
+        
+        stage('Building our image') {
+            agent any
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    props = readJSON file: 'package.json'
+                    echo "${props.version}"
+                    dockerImage = docker.build registry + ":${props.version}-$BUILD_NUMBER"
+                    docker.withRegistry('', registryCredential) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
 
     }
 }
